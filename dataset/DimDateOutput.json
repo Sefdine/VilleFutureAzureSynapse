@@ -1,6 +1,9 @@
 {
-	"name": "DestinationDataset_oky",
+	"name": "DimDateOutput",
 	"properties": {
+		"folder": {
+			"name": "Output"
+		},
 		"annotations": [],
 		"type": "SqlPoolTable",
 		"schema": [],
