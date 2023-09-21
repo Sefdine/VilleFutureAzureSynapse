@@ -1,0 +1,17 @@
+{
+	"name": "Create_procedures",
+	"properties": {
+		"content": {
+			"query": "\n-- Delete weather metrics for date\nDROP PROCEDURE DeleteWeatherMetricDate;\nCREATE PROCEDURE DeleteWeatherMetricDate\n    @DateID INT\nAS\nBEGIN\n    BEGIN TRY\n        -- Begin a transaction\n        BEGIN TRANSACTION;\n\n        -- Delete the WeatherMetrics record\n        DELETE FROM dbo.WeatherMetrics WHERE DateID = @DateID;\n\n        -- Commit the transaction\n        COMMIT TRANSACTION;\n    END TRY\n    BEGIN CATCH\n        -- An error occurred, roll back the transaction\n        ROLLBACK TRANSACTION;\n    END CATCH;\nEND;\n\n-- Delete weather metrics for region\nDROP PROCEDURE DeleteWeatherMetricRegion;\nCREATE PROCEDURE DeleteWeatherMetricRegion\n    @RegionID INT\nAS\nBEGIN\n    BEGIN TRY\n        -- Begin a transaction\n        BEGIN TRANSACTION;\n\n        -- Delete the WeatherMetrics record\n        DELETE FROM dbo.WeatherMetrics WHERE RegionID = @RegionID;\n\n        -- Commit the transaction\n        COMMIT TRANSACTION;\n    END TRY\n    BEGIN CATCH\n        -- An error occurred, roll back the transaction\n        ROLLBACK TRANSACTION;\n    END CATCH;\nEND;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "sefdinenassufdedicatedsqlpool",
+				"poolName": "sefdinenassufdedicatedsqlpool"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
