@@ -1,0 +1,15 @@
+{
+	"name": "DestinationDataset_oky",
+	"properties": {
+		"annotations": [],
+		"type": "SqlPoolTable",
+		"schema": [],
+		"typeProperties": {
+			"table": "DimDate"
+		},
+		"sqlPool": {
+			"referenceName": "sefdinenassufdedicatedsqlpool",
+			"type": "SqlPoolReference"
+		}
+	}
+}
