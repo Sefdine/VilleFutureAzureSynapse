@@ -1,0 +1,32 @@
+{
+	"name": "DimRegionCleaned",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sefdinenassufblobcontainer",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "DimRegionCleaned",
+				"container": "output"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "RegionID",
+				"type": "String"
+			},
+			{
+				"name": "RegionName",
+				"type": "String"
+			}
+		]
+	}
+}

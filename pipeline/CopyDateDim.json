@@ -13,16 +13,7 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [
-					{
-						"name": "Source",
-						"value": "input//datedim-6506f8f25d26e398055394.csv"
-					},
-					{
-						"name": "Destination",
-						"value": ".DimDate"
-					}
-				],
+				"userProperties": [],
 				"typeProperties": {
 					"source": {
 						"type": "DelimitedTextSource",
@@ -32,42 +23,18 @@
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
-							"type": "DelimitedTextReadSettings",
-							"skipLineCount": 0
+							"type": "DelimitedTextReadSettings"
 						}
 					},
 					"sink": {
 						"type": "SqlPoolSink",
 						"writeBehavior": "Insert",
+						"sqlWriterUseTableLock": false,
 						"tableOption": "autoCreate"
 					},
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"name": "DateID",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "DateID",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "Date",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "Date",
-									"type": "String"
-								}
-							}
-						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
@@ -77,22 +44,28 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DimDate",
+						"referenceName": "DimDateCleaned",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "DimDateOutput",
+						"referenceName": "DimDateLoad",
 						"type": "DatasetReference"
 					}
 				]
 			},
 			{
 				"name": "DimRegion",
-				"description": "Copy region data from blob storage",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "DimDate",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -131,22 +104,28 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DimRegion",
+						"referenceName": "DimRegionCleaned",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "DimRegionOutput",
+						"referenceName": "DimRegionLoad",
 						"type": "DatasetReference"
 					}
 				]
 			},
 			{
 				"name": "WeatherMetrics",
-				"description": "Import weather metrics",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "DimRegion",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -185,13 +164,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "WeatherMetrics",
+						"referenceName": "WeatherMetricsCleaned",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "WeatherMetricsOutput",
+						"referenceName": "WeatherMetricsLoad",
 						"type": "DatasetReference"
 					}
 				]

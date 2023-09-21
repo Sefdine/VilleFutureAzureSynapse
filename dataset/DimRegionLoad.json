@@ -1,0 +1,16 @@
+{
+	"name": "DimRegionLoad",
+	"properties": {
+		"annotations": [],
+		"type": "SqlPoolTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DimRegion"
+		},
+		"sqlPool": {
+			"referenceName": "sefdinenassufdedicatedsqlpool",
+			"type": "SqlPoolReference"
+		}
+	}
+}
