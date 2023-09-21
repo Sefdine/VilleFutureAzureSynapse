@@ -1,5 +1,5 @@
 {
-	"name": "SQL script 1",
+	"name": "AddForeignKeys",
 	"properties": {
 		"content": {
 			"query": "SELECT TOP (100) [DateID]\n,[RegionID]\n,[AverageTemperature]\n,[Humidity]\n,[WindSpeed]\n,[Rainfall]\n,[SunshineHours]\n FROM [dbo].[WeatherMetrics]",
