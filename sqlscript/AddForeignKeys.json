@@ -2,7 +2,7 @@
 	"name": "AddForeignKeys",
 	"properties": {
 		"content": {
-			"query": "SELECT TOP (100) [DateID]\n,[RegionID]\n,[AverageTemperature]\n,[Humidity]\n,[WindSpeed]\n,[Rainfall]\n,[SunshineHours]\n FROM [dbo].[WeatherMetrics]",
+			"query": "\nDROP TABLE DimDate;\nCREATE TABLE DimDate(\n    DateID INT NOT NULL,\n    Date DATE NOT NULL,\n    Year INT NOT NULL,\n    Month INT NOT NULL,\n    Day INT NOT NULL\n);\n\nDROP TABLE DimRegion;\nCREATE TABLE Region(\n    RegionID INT NOT NULL,\n    RegionName VARCHAR(255)\n);\n\nDROP TABLE FactWeatherMetrics;\nCREATE TABLE FactWeatherMetrics(\n    ID INT NOT NULL,\n    DateID INT NOT NULL,\n    RegoinID INT NOT NULL,\n    AverageTemperature INT NOT NULL,\n    Humidity INT NOT NULL,\n    WindSpeed INT NOT NULL,\n    Rainfall INT NOT NULL,\n    SunchineHours INT NOT NULL\n);",
 			"metadata": {
 				"language": "sql"
 			},
