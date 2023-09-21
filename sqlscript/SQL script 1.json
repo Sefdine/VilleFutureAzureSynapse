@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 1",
+	"properties": {
+		"content": {
+			"query": "SELECT TOP (100) [DateID]\n,[RegionID]\n,[AverageTemperature]\n,[Humidity]\n,[WindSpeed]\n,[Rainfall]\n,[SunshineHours]\n FROM [dbo].[WeatherMetrics]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "sefdinenassufdedicatedsqlpool",
+				"poolName": "sefdinenassufdedicatedsqlpool"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
