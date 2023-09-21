@@ -1,0 +1,102 @@
+{
+	"name": "ETL",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DimDate",
+						"type": "DatasetReference"
+					},
+					"name": "DimDate"
+				},
+				{
+					"dataset": {
+						"referenceName": "DimRegion",
+						"type": "DatasetReference"
+					},
+					"name": "DimRegion"
+				},
+				{
+					"dataset": {
+						"referenceName": "WeatherMetrics",
+						"type": "DatasetReference"
+					},
+					"name": "WeatherMetrics"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "TransformationDate"
+				},
+				{
+					"name": "DateHierarchy"
+				},
+				{
+					"name": "TransformationRegion"
+				},
+				{
+					"name": "TransformationWeatherMetrics"
+				},
+				{
+					"name": "GenerateID"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          DateID as string,",
+				"          Date as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> DimDate",
+				"source(output(",
+				"          RegionID as string,",
+				"          RegionName as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> DimRegion",
+				"source(output(",
+				"          DateID as string,",
+				"          RegionID as string,",
+				"          AverageTemperature as string,",
+				"          Humidity as string,",
+				"          WindSpeed as string,",
+				"          Rainfall as string,",
+				"          SunshineHours as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> WeatherMetrics",
+				"DimDate cast(output(",
+				"          DateID as integer,",
+				"          Date as date 'yyyy-MM-dd'",
+				"     ),",
+				"     errors: true) ~> TransformationDate",
+				"TransformationDate derive(Year = year(Date),",
+				"          Month = month(Date),",
+				"          Day = dayOfMonth(Date)) ~> DateHierarchy",
+				"DimRegion cast(output(",
+				"          RegionID as integer",
+				"     ),",
+				"     errors: true) ~> TransformationRegion",
+				"WeatherMetrics cast(output(",
+				"          DateID as integer,",
+				"          RegionID as integer,",
+				"          AverageTemperature as integer,",
+				"          Humidity as integer,",
+				"          WindSpeed as integer,",
+				"          Rainfall as integer,",
+				"          SunshineHours as integer",
+				"     ),",
+				"     errors: true) ~> TransformationWeatherMetrics",
+				"TransformationWeatherMetrics keyGenerate(output(ID as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> GenerateID"
+			]
+		}
+	}
+}
