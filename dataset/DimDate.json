@@ -1,5 +1,5 @@
 {
-	"name": "SourceDataset_oky",
+	"name": "DimDate",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "sefdinenassufblobcontainer",
