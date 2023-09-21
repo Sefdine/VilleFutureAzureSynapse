@@ -1,0 +1,16 @@
+{
+	"name": "WeatherMetricsLoad",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sefdinenassufsynapseanalytics-WorkspaceDefaultSqlServer",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "WeatherMetrics"
+		}
+	}
+}

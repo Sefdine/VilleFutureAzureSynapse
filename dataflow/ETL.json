@@ -26,7 +26,29 @@
 					"name": "WeatherMetrics"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DimDateLoad",
+						"type": "DatasetReference"
+					},
+					"name": "DimDateLoad"
+				},
+				{
+					"dataset": {
+						"referenceName": "DimRegionLoad",
+						"type": "DatasetReference"
+					},
+					"name": "DimRegionLoad"
+				},
+				{
+					"dataset": {
+						"referenceName": "WeatherMetricsLoad",
+						"type": "DatasetReference"
+					},
+					"name": "WeatherMetricsLoad"
+				}
+			],
 			"transformations": [
 				{
 					"name": "TransformationDate"
@@ -95,7 +117,43 @@
 				"     errors: true) ~> TransformationWeatherMetrics",
 				"TransformationWeatherMetrics keyGenerate(output(ID as long),",
 				"     startAt: 1L,",
-				"     stepValue: 1L) ~> GenerateID"
+				"     stepValue: 1L) ~> GenerateID",
+				"DateHierarchy sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     staged: true,",
+				"     allowCopyCommand: true,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> DimDateLoad",
+				"TransformationRegion sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     staged: true,",
+				"     allowCopyCommand: true,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> DimRegionLoad",
+				"GenerateID sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     staged: true,",
+				"     allowCopyCommand: true,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> WeatherMetricsLoad"
 			]
 		}
 	}
